@@ -1,0 +1,14 @@
+{
+    "accounts": [
+        {
+            "AcNumber": "ACC001",
+            "name": "KELP",
+            "balance": 9000
+        },
+        {
+            "AcNumber": "ACC002",
+            "name": "FVTPL",
+            "balance": 8000
+        }
+    ]
+}
