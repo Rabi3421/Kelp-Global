@@ -17,7 +17,7 @@ const create = () => {
     fs.writeFileSync("./dataBase.json", JSON.stringify(parsedData), "utf-8");
     console.log("Your account is created successfully");
   } else {
-    console.log("Sorry! your account is aleady exists");
+    console.log("Sorry ! your account is aleady exists");
   }
 };
 
@@ -39,7 +39,7 @@ const deposit = () => {
     console.log("Your Amount deposited successfully");
   } else {
     console.log(
-      "Your account Number Not found! Please provide a valid account Number"
+      "Your account Number Not found ! Please provide a valid account Number"
     );
   }
 };
@@ -53,7 +53,7 @@ const withdraw = () => {
   let acNoExist = accounts.find((o) => o.AcNumber === input[3]);
   if (!acNoExist) {
     console.log(
-      "Your account Number Not found! Please provide a valid account Number"
+      "Your account Number Not found ! Please provide a valid account Number"
     );
   } else if (acNoExist && acNoExist.balance >= input[4]) {
     let obj = accounts.map((item) =>
@@ -66,7 +66,7 @@ const withdraw = () => {
     console.log("Your Amount withdrawn successfully");
   } else if (acNoExist.balance < input[4]) {
     console.log(
-      "Sorry ! You don't have sufficient amount to withdraw in your account"
+      `Sorry ! You don't have sufficient amount to withdraw ! You have only ₹${acNoExist.balance}`
     );
   }
 };
@@ -85,7 +85,7 @@ const balance = () => {
   });
   if (!acNoExist) {
     console.log(
-      "Sorry!  Your account Number Not found! Please provide a valid account Number"
+      "Sorry ! Your account Number Not found ! Please provide a valid account Number"
     );
   }
 };
@@ -99,5 +99,5 @@ if (input[2] === "CREATE") {
 } else if (input[2] === "BALANCE") {
   balance();
 } else {
-  console.log("invalid code entered! please enter a valid code");
+  console.log("invalid code entered ! please enter a valid code");
 }
