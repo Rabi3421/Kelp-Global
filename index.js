@@ -27,15 +27,20 @@ const deposit = () => {
   const data = fs.readFileSync("./dataBase.json", "utf-8");
   parsedData = JSON.parse(data);
   const accounts = parsedData.accounts;
-  let obj = accounts.map((item) =>
-    item.AcNumber === input[3]
-      ? { ...item, balance: item.balance + +input[4] }
-      : item
-  );
-  if (obj) {
+  let acNoExist = accounts.find((o) => o.AcNumber === input[3]);
+  if (acNoExist !== undefined) {
+    let obj = accounts.map((item) =>
+      item.AcNumber === input[3]
+        ? { ...item, balance: item.balance + +input[4] }
+        : item
+    );
     parsedData.accounts = obj;
     fs.writeFileSync("./dataBase.json", JSON.stringify(parsedData), "utf-8");
     console.log("Your Amount deposited successfully");
+  } else {
+    console.log(
+      "Your account Number Not found! Please provide a valid account Number"
+    );
   }
 };
 
@@ -45,15 +50,24 @@ const withdraw = () => {
   const data = fs.readFileSync("./dataBase.json", "utf-8");
   parsedData = JSON.parse(data);
   const accounts = parsedData.accounts;
-  let obj = accounts.map((item) =>
-    item.AcNumber === input[3]
-      ? { ...item, balance: item.balance - +input[4] }
-      : item
-  );
-  if (obj) {
+  let acNoExist = accounts.find((o) => o.AcNumber === input[3]);
+  if (!acNoExist) {
+    console.log(
+      "Your account Number Not found! Please provide a valid account Number"
+    );
+  } else if (acNoExist && acNoExist.balance >= input[4]) {
+    let obj = accounts.map((item) =>
+      item.AcNumber === input[3]
+        ? { ...item, balance: item.balance - +input[4] }
+        : item
+    );
     parsedData.accounts = obj;
     fs.writeFileSync("./dataBase.json", JSON.stringify(parsedData), "utf-8");
     console.log("Your Amount withdrawn successfully");
+  } else if (acNoExist.balance < input[4]) {
+    console.log(
+      "Sorry ! You don't have sufficient amount to withdraw in your account"
+    );
   }
 };
 
@@ -63,11 +77,17 @@ const balance = () => {
   const data = fs.readFileSync("./dataBase.json", "utf-8");
   parsedData = JSON.parse(data);
   const accounts = parsedData.accounts;
-  let balance = accounts.map((item) => {
+  let acNoExist = accounts.find((o) => o.AcNumber === input[3]);
+  accounts.map((item) => {
     if (item.AcNumber === input[3]) {
       console.log(`${item.name} ${item.balance}`);
     }
   });
+  if (!acNoExist) {
+    console.log(
+      "Sorry!  Your account Number Not found! Please provide a valid account Number"
+    );
+  }
 };
 
 if (input[2] === "CREATE") {
